@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/getkin/kin-openapi/jsoninfo"
+	"github.com/karim42benhammou/kin-openapi/jsoninfo"
 )
 
 // ExternalDocs is specified by OpenAPI/Swagger standard version 3.

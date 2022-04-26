@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/getkin/kin-openapi/jsoninfo"
 	"github.com/go-openapi/jsonpointer"
+	"github.com/karim42benhammou/kin-openapi/jsoninfo"
 )
 
 // Operation represents "operation" specified by" OpenAPI/Swagger 3.0 standard.

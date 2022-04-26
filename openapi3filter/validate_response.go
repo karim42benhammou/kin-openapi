@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/getkin/kin-openapi/openapi3"
+	"github.com/karim42benhammou/kin-openapi/openapi3"
 )
 
 // ValidateResponse is used to validate the given input according to previous

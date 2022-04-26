@@ -6,8 +6,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/getkin/kin-openapi/openapi3"
-	"github.com/getkin/kin-openapi/routers"
+	"github.com/karim42benhammou/kin-openapi/openapi3"
+	"github.com/karim42benhammou/kin-openapi/routers"
 	"github.com/stretchr/testify/require"
 )
 

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/getkin/kin-openapi/jsoninfo"
 	"github.com/go-openapi/jsonpointer"
+	"github.com/karim42benhammou/kin-openapi/jsoninfo"
 )
 
 type RequestBodies map[string]*RequestBodyRef
