@@ -43,7 +43,14 @@ var (
 	ErrSchemaInputInf = errors.New("floating point Inf is not allowed")
 )
 
-// Float64Ptr is a helper for defining OpenAPI schemas.
+var regexpCompile = func(expr string) (Regexp, error) {
+	return regexp.Compile(expr)
+}
+
+func SetRegexCompiler(fn func(expr string) (Regexp, error)) {
+	regexpCompile = fn
+}
+
 func Float64Ptr(value float64) *float64 {
 	return &value
 }
@@ -143,7 +150,7 @@ type Schema struct {
 	MinLength       uint64  `json:"minLength,omitempty" yaml:"minLength,omitempty"`
 	MaxLength       *uint64 `json:"maxLength,omitempty" yaml:"maxLength,omitempty"`
 	Pattern         string  `json:"pattern,omitempty" yaml:"pattern,omitempty"`
-	compiledPattern *regexp.Regexp
+	compiledPattern Regexp
 
 	// Array
 	MinItems uint64     `json:"minItems,omitempty" yaml:"minItems,omitempty"`
@@ -158,6 +165,10 @@ type Schema struct {
 	AdditionalPropertiesAllowed *bool          `multijson:"additionalProperties,omitempty" json:"-" yaml:"-"` // In this order...
 	AdditionalProperties        *SchemaRef     `multijson:"additionalProperties,omitempty" json:"-" yaml:"-"` // ...for multijson
 	Discriminator               *Discriminator `json:"discriminator,omitempty" yaml:"discriminator,omitempty"`
+}
+
+type Regexp interface {
+	MatchString(s string) bool
 }
 
 var _ jsonpointer.JSONPointable = (*Schema)(nil)
@@ -1508,7 +1519,7 @@ func (schema *Schema) expectedType(settings *schemaValidationSettings, typ strin
 }
 
 func (schema *Schema) compilePattern() (err error) {
-	if schema.compiledPattern, err = regexp.Compile(schema.Pattern); err != nil {
+	if schema.compiledPattern, err = regexpCompile(schema.Pattern); err != nil {
 		return &SchemaError{
 			Schema:      schema,
 			SchemaField: "pattern",
